@@ -8,13 +8,13 @@ export default function CreateOrderPopup({
   return (
     <div
       onClick={onClose}
-      className="w-full h-full absolute z-50 top-0 left-0 backdrop-filter backdrop-brightness-75 backdrop-blur-md justify-center items-center flex"
+      className="w-full h-full absolute z-50 top-0 left-0 backdrop-filter backdrop-brightness-50 justify-center items-center flex"
     >
       <div
         onClick={(e) => {
           e.stopPropagation();
         }}
-        className="relative bg-white rounded-lg shadow p-16"
+        className="relative bg-white p-16 ambermodal"
       >
         {children}
         {/* <button

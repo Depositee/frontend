@@ -12,7 +12,7 @@ export default function ListOrder({}: {}) {
     });
   }, []);
   return (
-    <div className="bg-white p-10 w-5/6 rounded-xl grid grid-cols-4 overflow-y-auto">
+    <div className="p-4 w-full grid md:grid-cols-2 xl:grid-cols-4 overflow-y-auto gap-4">
       {orderItems.length == 0 ? (
         <p>No Order</p>
       ) : (

@@ -8,16 +8,16 @@ const Navbar: React.FC = async () => {
   const session = null;
   // const session = await getServerSession(authOptions);
   return (
-    <div className="h-[50px] bg-white fixed top-0 left-0 right-0 z-30 border-t border-b border-gray-300 flex flex-row justify-end">
-      {/* <NavItem path="/" title="Home" /> */}
+    <div className="h-16 fixed top-0 left-0 right-0 z-30 flex flex-row justify-end items-center px-8 gap-8">
+      {<NavItem path="/" title="Home" />}
       {session ? (
-        <NavItem path="/api/auth/signout" title="logout" />
+        <NavItem path="/api/auth/signout" title="Log Out" />
       ) : (
-        <NavItem path="/api/auth/signin" title="login" />
+        <NavItem path="/login" title="Log In" />
       )}
 
-      <div className="relative h-full justify-center align-center">
-        <Image src="/globe.svg" alt="logo" width={40} height={40} />
+      <div className="relative h-full justify-center align-center flex">
+        <Image src="/globe.svg" alt="logo" width={24} height={24} />
       </div>
     </div>
   );

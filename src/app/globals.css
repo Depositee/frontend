@@ -2,38 +2,101 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer components {
+  .card{
+    @apply border-2 border-pink-400 cursor-pointer select-none;
+    
+    transition: all 0.5s cubic-bezier(0.33, 2, 0, 0.25);
+    box-shadow: 0.5rem 0.5rem 0 0 theme('colors.pink.400');
   }
-}
+  .card:hover{
+    @apply -translate-x-2 -translate-y-2;
+    box-shadow: 1rem 1rem 0 0 theme('colors.pink.400');
+  }
+  .card:active{
+    @apply translate-x-2 translate-y-2;
+    box-shadow: 0rem 0rem 0 0px theme('colors.pink.400');
+  }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  margin-top: 50px;
-}
-
-::-webkit-scrollbar {
-  width: 8px; /* Width of the scrollbar */
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Background of the scrollbar track */
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #888; /* Color of the scrollbar thumb */
-  border-radius: 4px; /* Rounded corners for the scrollbar thumb */
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Color when hovering */
+  .pinkbtn{
+    @apply border-2 border-pink-400 cursor-pointer select-none px-4 py-2;
+    transition: transform 0.5s cubic-bezier(0.33, 2, 0, 0.25), box-shadow 0.5s cubic-bezier(0.33, 2, 0, 0.25), background-color 0.25s ease, color 0.25s ease;
+    box-shadow: 0.25rem 0.25rem 0 0 theme('colors.pink.400');
+  }
+  .pinkbtn:hover{
+    @apply -translate-x-1 -translate-y-1;
+    box-shadow: 0.5rem 0.5rem 0 0 theme('colors.pink.400');
+  }
+  .pinkbtn:active{
+    transition: all 0.25s ease;
+    @apply translate-x-0 translate-y-0 scale-x-110 scale-y-95 z-10 bg-pink-400 text-white;
+    box-shadow: 0rem 0rem 0 0 theme('colors.pink.400');
+  }
+  .amberbtn{
+    @apply border-2 border-amber-400 cursor-pointer select-none px-4 py-2;
+    transition: transform 0.5s cubic-bezier(0.33, 2, 0, 0.25), box-shadow 0.5s cubic-bezier(0.33, 2, 0, 0.25), background-color 0.25s ease, color 0.25s ease;
+    box-shadow: 0.25rem 0.25rem 0 0 theme('colors.amber.400');
+  }
+  .amberbtn:hover{
+    @apply -translate-x-1 -translate-y-1;
+    box-shadow: 0.5rem 0.5rem 0 0 theme('colors.amber.400');
+  }
+  .amberbtn:active{
+    transition: all 0.25s ease;
+    @apply translate-x-0 translate-y-0 scale-x-110 scale-y-95 z-10 bg-amber-400;
+    box-shadow: 0rem 0rem 0 0 theme('colors.amber.400');
+  }
+  .stonebtn{
+    @apply border-2 border-stone-400 cursor-pointer select-none px-4 py-2;
+    transition: transform 0.5s cubic-bezier(0.33, 2, 0, 0.25), box-shadow 0.5s cubic-bezier(0.33, 2, 0, 0.25), background-color 0.25s ease, color 0.25s ease;
+    box-shadow: 0.25rem 0.25rem 0 0 theme('colors.stone.400');
+  }
+  .stonebtn:hover{
+    @apply -translate-x-1 -translate-y-1;
+    box-shadow: 0.5rem 0.5rem 0 0 theme('colors.stone.400');
+  }
+  .stonebtn:active{
+    transition: all 0.25s ease;
+    @apply translate-x-0 translate-y-0 scale-x-110 scale-y-95 z-10 bg-stone-400 text-white;
+    box-shadow: 0rem 0rem 0 0 theme('colors.stone.400');
+  }
+  .redbutton
+  {
+    @apply border-2 border-red-400 cursor-pointer select-none px-4 py-2;
+    transition: transform 0.5s cubic-bezier(0.33, 2, 0, 0.25), box-shadow 0.5s cubic-bezier(0.33, 2, 0, 0.25), background-color 0.25s ease, color 0.25s ease;
+    box-shadow: 0.25rem 0.25rem 0 0 theme('colors.red.400');
+  }
+  .redbutton:hover{
+    @apply -translate-x-1 -translate-y-1;
+    box-shadow: 0.5rem 0.5rem 0 0 theme('colors.red.400');
+  }
+  .redbutton:active{
+    transition: all 0.25s ease;
+    @apply translate-x-0 translate-y-0 scale-x-110 scale-y-95 z-10 bg-red-400;
+    box-shadow: 0rem 0rem 0 0 theme('colors.red.400');
+  }
+  .ambermodal{
+    @apply border-2 border-amber-400 select-none;
+    
+    transition: all 0.5s cubic-bezier(0.33, 2, 0, 0.25);
+    box-shadow: 0.5rem 0.5rem 0 0 theme('colors.amber.400');
+  }
+  .pinkmodal{
+    @apply border-2 border-pink-400 select-none;
+    
+    transition: all 0.5s cubic-bezier(0.33, 2, 0, 0.25);
+    box-shadow: 0.5rem 0.5rem 0 0 theme('colors.pink.400');
+  }
+  .stonemodal{
+    @apply border-2 border-stone-400 select-none;
+    
+    transition: all 0.5s cubic-bezier(0.33, 2, 0, 0.25);
+    box-shadow: 0.5rem 0.5rem 0 0 theme('colors.stone.400');
+  }
+  .redmodal{
+    @apply border-2 border-red-400 select-none;
+    
+    transition: all 0.5s cubic-bezier(0.33, 2, 0, 0.25);
+    box-shadow: 0.5rem 0.5rem 0 0 theme('colors.red.400');
+  }
 }

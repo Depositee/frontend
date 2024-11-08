@@ -12,7 +12,7 @@ export default function NavItems({
   return (
     <Link
       href={path}
-      className="flex flex-col justify-center w-[120px] text-center mt-auto mb-auto font-sans text-gray-500 mr-2.5"
+      className="flex flex-col justify-center text-center mt-auto mb-auto font-sans text-stone-800 font-bold"
     >
       <p>{title}</p>
     </Link>
