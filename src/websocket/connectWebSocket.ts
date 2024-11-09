@@ -12,22 +12,30 @@ export const connectWebSocket = (user: UserData) => {
         currentWebSocket = null;
     }
 
-    const ws = new WebSocket(`ws://localhost:8088?userId=${userId}`);
-    currentWebSocket = ws;
+    const createWebSocket = () => {
+        const ws = new WebSocket(`ws://localhost:8088?userId=${userId}`);
+        currentWebSocket = ws;
 
-    ws.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-        toast.info(`New notification: ${message.message}`);
+        ws.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            toast.info(`New notification: ${message.message}`);
+        };
+
+        ws.onopen = () => console.log("Connected to WebSocket");
+
+        ws.onerror = (error) => {
+            console.log("WebSocket error:", error);
+        };
+
+        ws.onclose = () => {
+            console.log("WebSocket connection closed");
+            if (currentWebSocket === ws) {
+                currentWebSocket = null;
+            }
+        };
     };
 
-    ws.onopen = () => console.log("Connected to WebSocket");
-    ws.onerror = (error) => console.error("WebSocket error:", error);
-    ws.onclose = () => {
-        console.log("WebSocket connection closed");
-        if (currentWebSocket === ws) {
-            currentWebSocket = null;
-        }
-    };
+    createWebSocket(); 
 
     return () => {
         if (currentWebSocket) {
