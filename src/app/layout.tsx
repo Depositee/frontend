@@ -28,7 +28,7 @@ export default function RootLayout({
         className={`font-sans`}
       >
         <AuthProvider>
-          <Navbar></Navbar>
+          <Navbar/>
           {children}
         </AuthProvider>
       </body>
