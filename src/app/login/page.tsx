@@ -1,11 +1,16 @@
 "use client";
+import getCurrentUser from "@/api/auth/getCurrentUser.api";
 import login from "@/api/auth/login.api";
+import { AuthContext } from "@/contexts/AuthContext";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useContext, useState } from "react";
 
 export default function LoginPage(){
+    const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { setIsLogin ,setCurrentUser} = useContext(AuthContext);
 
     const handleSubmit = async(event : React.FormEvent) =>{
         event.preventDefault();
@@ -13,15 +18,13 @@ export default function LoginPage(){
             const loginUser = await login(email,password);
 
             if (loginUser) {
-                // setIsLogin(true);
-                // getCurrentEntity().then((Response) => {
-                //     setCurrentEntity(Response);
-                //     setAccType(getCurrentEntityType(Response))
-                // });
-                // router.push("/")
+                setIsLogin(true);
+                const currentUser = await getCurrentUser();
+                setCurrentUser(currentUser)
+                router.push("/")
             }
         } catch (error) {
-            // setIsLogin(false);
+            setIsLogin(false);
             console.error("Error during login:", error);
         }
     }
