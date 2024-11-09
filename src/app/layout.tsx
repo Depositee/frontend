@@ -10,6 +10,7 @@ import '@fontsource/geist-mono/600.css';
 import '@fontsource/geist-mono/700.css';
 import '@fontsource/geist-mono/800.css';
 import '@fontsource/geist-mono/900.css';
+import { AuthProvider } from "@/contexts/AuthContext";
 
 export const metadata: Metadata = {
   title: "Depositee",
@@ -26,8 +27,10 @@ export default function RootLayout({
       <body
         className={`font-sans`}
       >
-        <Navbar></Navbar>
-        {children}
+        <AuthProvider>
+          <Navbar/>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

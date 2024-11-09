@@ -2,19 +2,26 @@
 import React from "react";
 import Link from "next/link";
 
-export default function NavItems({
-  path,
-  title,
-}: {
+interface NavItemsProps {
   path: string;
   title: string;
-}) {
+  onClick? : () => void;
+}
+
+export default function NavItems(props : NavItemsProps) {
   return (
-    <Link
-      href={path}
+    props.onClick ? 
+    <button onClick={props.onClick} 
       className="flex flex-col justify-center text-center mt-auto mb-auto font-sans text-stone-800 font-bold"
     >
-      <p>{title}</p>
+          {props.title}
+    </button>
+    : 
+    <Link
+      href={props.path}
+      className="flex flex-col justify-center text-center mt-auto mb-auto font-sans text-stone-800 font-bold"
+    >
+      <p>{props.title}</p>
     </Link>
   );
 }
