@@ -18,15 +18,13 @@ export default async function login(
         }),
     });
     if (response.ok) {
-        // Login successful
         toast.success('Login Success')
         const data = await response.json()
-        setCookie("token",data?.token);
+        setCookie("auth",data?.token);
         return data;
 
     } else {
-        // Login failed
-        toast('Incorrect username/password\nor Account does not exist');
+        toast.error('Incorrect username/password\nor Account does not exist');
         console.error("Login failed");
     }
 
