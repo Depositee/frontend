@@ -6,8 +6,9 @@ export interface Order{
     status : string;
     payment_type : string;
     payment_amount : string;
-    name: string;
-    description: string;
+    package_name: string;
+    package_description: string;
+    package_weight : number;
 }
 
 export interface GetMyOrders{
