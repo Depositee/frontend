@@ -3,9 +3,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { GATE_WAY_PORT, GATE_WAY_URL } from "@/config/config";
-const API_URL = `http://${GATE_WAY_URL}:${GATE_WAY_PORT}`;
 export default async function login(email: string, password: string) {
-  const response = await fetch(API_URL + "/auth/login", {
+  const API_URL = `http://${GATE_WAY_URL}:${GATE_WAY_PORT}/auth/login`;
+  console.log(GATE_WAY_URL, GATE_WAY_PORT, API_URL, "API_URL_login");
+  const response = await fetch(API_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -14,6 +15,7 @@ export default async function login(email: string, password: string) {
       email: email,
       password: password,
     }),
+    credentials: "include",
   });
   if (response.ok) {
     toast.success("Login Success");
