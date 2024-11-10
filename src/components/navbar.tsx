@@ -21,7 +21,10 @@ export default function Navbar() {
       {isLogin ? (
         <NavItem path="/" title="Log Out" onClick={handleLogout} />
       ) : (
-        <NavItem path="/login" title="Log In" />
+        <>
+          <NavItem path="/login" title="Log In" />
+          <NavItem path="/register" title="Register" />
+        </>
       )}
 
       <div className="relative h-full justify-center align-center flex">
