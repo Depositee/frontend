@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CreateOrderPopup from "./createOrderPopup";
 import { useRouter } from "next/navigation";
+import CreateOrderForm from "./createOrderForm";
 
 export default function Sidebar() {
   
@@ -29,41 +30,7 @@ export default function Sidebar() {
       </div>
       {showPopup && (
           <CreateOrderPopup onClose={onCloseModal}>
-            <h1 className="text-3xl font-extrabold mb-4">Create Order</h1>
-            <form>
-              <div className="flex flex-col gap-4">
-                <label className="mx-8">Package Appearance</label>
-                <input
-                  type="text"
-                  placeholder="EMS, Registered Mail, a big box"
-                  className="p-2 border-2 border-amber-400 lg:mx-8"
-                />
-                <label className="mx-8">Package Addressed</label>
-                <input
-                  type="text"
-                  placeholder="Your Name, The Package Receiver"
-                  className="p-2 border-2 border-amber-400 lg:mx-8"
-                />
-                <label className="mx-8">Will be receiving at</label>
-                <input
-                  type="text"
-                  placeholder="Room Number, Place of Meetup"
-                  className="p-2 border-2 border-amber-400 lg:mx-8"
-                />
-                <label className="mx-8">Receiver Phone Number</label>
-                <input
-                  type="text"
-                  placeholder="Receiver Phone"
-                  className="p-2 border-2 border-amber-400 lg:mx-8"
-                />
-                <button
-                  type="submit"
-                  className="p-2 amberbtn font-bold"
-                >
-                  Create Order
-                </button>
-              </div>
-            </form>
+            <CreateOrderForm onClose={onCloseModal}/>
           </CreateOrderPopup>
         )}
     </>
