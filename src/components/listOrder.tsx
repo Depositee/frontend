@@ -1,10 +1,11 @@
 "use client";
 import OrderDisplay from "./orderDisplay";
-interface ListOrderProps{
-  orderItems : Order[]
+import { Order } from "@/interface/order/order";
+interface ListOrderProps {
+  orderItems: Order[];
 }
 
-export default function ListOrder(props : ListOrderProps) {
+export default function ListOrder(props: ListOrderProps) {
   const orderItems = props.orderItems;
   return (
     <div className="p-4 w-full h-full flex items-center justify-center">
