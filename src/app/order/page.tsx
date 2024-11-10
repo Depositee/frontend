@@ -1,5 +1,5 @@
 "use client";
-import getAllOrders from "@/api/order/getAllOrder.api";
+import getMyOrders from "@/api/order/getMyOrder.api";
 import ListOrder from "@/components/listOrder";
 import Sidebar from "@/components/sidebar";
 import { AuthContext } from "@/contexts/AuthContext";
@@ -10,12 +10,12 @@ import { useContext, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Home() {
+export default function MyOrderPage() {
   const { isLogin,currentUser} = useContext(AuthContext);
   const [orderItems, setOrderItems] = useState<Order[]>([]);
 
   const fetchMyOrders = async() =>{
-    const myOrders : GetMyOrders= await getAllOrders()
+    const myOrders : GetMyOrders= await getMyOrders()
     if(myOrders.success && myOrders.data.data){
       setOrderItems(myOrders.data.data)
     }
@@ -23,6 +23,7 @@ export default function Home() {
   useEffect(() => {
     fetchMyOrders()
   }, []);
+  
   useEffect(() => {
     if(isLogin && currentUser != null){
       const userData : UserData = currentUser.data.user

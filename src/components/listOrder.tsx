@@ -1,23 +1,13 @@
 "use client";
-
-import { useState, useEffect } from "react";
-
+import { Order } from "@/interface/order/order";
 import OrderDisplay from "./orderDisplay";
-import getMyOrders from "@/api/order/getMyOrder.api";
-import { GetMyOrders, Order } from "@/interface/order/order";
 
-export default function ListOrder() {
-  const [orderItems, setOrderItems] = useState<Order[]>([]);
+interface ListOrderProps{
+  orderItems : Order[]
+}
 
-  const fetchMyOrders = async() =>{
-    const myOrders : GetMyOrders= await getMyOrders()
-    if(myOrders.success && myOrders.data.data){
-      setOrderItems(myOrders.data.data)
-    }
-  }
-  useEffect(() => {
-    fetchMyOrders()
-  }, []);
+export default function ListOrder(props : ListOrderProps) {
+  const orderItems = props.orderItems
   return (
     <div className="p-4 w-full grid md:grid-cols-2 xl:grid-cols-4 overflow-y-auto gap-4">
       {orderItems.length == 0 ? (

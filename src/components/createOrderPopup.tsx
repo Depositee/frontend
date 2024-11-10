@@ -17,12 +17,12 @@ export default function CreateOrderPopup({
         className="relative bg-white p-16 ambermodal"
       >
         {children}
-        {/* <button
+        <button
           onClick={onClose}
           className="mt-4 p-2 bg-blue-500 text-white rounded"
         >
           Close
-        </button> */}
+        </button>
       </div>
     </div>
   );
