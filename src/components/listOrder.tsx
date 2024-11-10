@@ -6,12 +6,11 @@ import OrderDisplay from "./orderDisplay";
 import getMyOrders from "@/api/order/getMyOrder.api";
 import { GetMyOrders, Order } from "@/interface/order/order";
 
-export default function ListOrder({}: {}) {
+export default function ListOrder() {
   const [orderItems, setOrderItems] = useState<Order[]>([]);
 
   const fetchMyOrders = async() =>{
     const myOrders : GetMyOrders= await getMyOrders()
-    console.log('my order',myOrders)
     if(myOrders.success && myOrders.data.data){
       setOrderItems(myOrders.data.data)
     }

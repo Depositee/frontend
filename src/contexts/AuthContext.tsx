@@ -29,6 +29,11 @@ export const AuthProvider = ({ children }: Props) => {
   useEffect(() => {
       getCurrentUser().then((Response) => {
           setCurrentUser(Response);
+          if(Response.success && Response.data.valid){
+            setIsLogin(true)
+          }else{
+            setIsLogin(false)
+          }
       });
     }, 
   []);
