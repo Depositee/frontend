@@ -1,4 +1,5 @@
 "use client";
+import register from "@/api/auth/register.api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -14,28 +15,24 @@ export default function RegisterPage() {
   const [roomNumber, setRoomNumber] = useState("");
 
   const handleSubmit = async (event: React.FormEvent) => {
-    // event.preventDefault();
-    // try {
-    //   const registerUser = await register({
-    //     username,
-    //     email,
-    //     password,
-    //     firstName,
-    //     lastName,
-    //     phoneNumber,
-    //     roomNumber,
-    //   });
+    event.preventDefault();
+    try {
+      const registerUser = await register(
+        username,
+        email,
+        password,
+        firstName,
+        lastName,
+        phoneNumber,
+        roomNumber,
+      );
 
-    //   if (registerUser) {
-    //     setIsLogin(true);
-    //     const currentUser = await getCurrentUser();
-    //     setCurrentUser(currentUser);
-    //     router.push("/");
-    //   }
-    // } catch (error) {
-    //   setIsLogin(false);
-    //   console.error("Error during registration:", error);
-    // }
+      if (registerUser && registerUser.success) {
+        router.push("/login");
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
   };
 
   return (
