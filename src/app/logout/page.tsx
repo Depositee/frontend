@@ -1,15 +1,18 @@
+"use client";
 import { AuthContext } from "@/contexts/AuthContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
-export function LogOut(){
-    {/* clear session*/}
-    
-    const { setIsLogin ,setCurrentUser} = useContext(AuthContext);
+export default function LogOut() {
+  const { setIsLogin, setCurrentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    // Clear session and update the context values on client side
     setIsLogin(false);
     setCurrentUser(null);
-    return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <h1 className="text-4xl font-bold">You have been logged out</h1>
-        </div>
-    )
+  }, [setIsLogin, setCurrentUser]);
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-4xl font-bold">You have been logged out</h1>
+    </div>
+  );
 }
