@@ -109,7 +109,7 @@ export default function UpdateOrderPage() {
       <div className="flex w-full h-full p-5 pt-12">
         <Sidebar />
 
-        <div className="flex flex-col w-full max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <div className="flex flex-col w-full max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg overflow-y-scroll">
           {/* Show error message if there is one */}
 
           {errorMessage && (
