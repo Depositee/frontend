@@ -2,10 +2,11 @@
 import { useState } from "react";
 import createOrder from "@/api/order/createOrder.api";
 
-interface CreateOrderFormProps{
-    onClose : () => void
+interface CreateOrderFormProps {
+  onClose: () => void;
 }
-export default function CreateOrderForm(props : CreateOrderFormProps) {
+
+export default function CreateOrderForm(props: CreateOrderFormProps) {
   const [packageName, setPackageName] = useState("");
   const [packageDescription, setPackageDescription] = useState("");
   const [packageWeight, setPackageWeight] = useState<number | "">("");
@@ -13,7 +14,7 @@ export default function CreateOrderForm(props : CreateOrderFormProps) {
   const [paymentAmount, setPaymentAmount] = useState<number | "">("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const closePopup = props.onClose
+  const closePopup = props.onClose;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,8 +40,8 @@ export default function CreateOrderForm(props : CreateOrderFormProps) {
         setPackageDescription("");
         setPackageWeight("");
         setPaymentAmount("");
-        closePopup()
-        window.location.reload()
+        closePopup();
+        window.location.reload();
       } else {
         setErrorMessage("Failed to create order.");
       }
@@ -80,6 +81,16 @@ export default function CreateOrderForm(props : CreateOrderFormProps) {
           value={packageWeight}
           onChange={(e) => setPackageWeight(e.target.value ? Number(e.target.value) : "")}
         />
+
+        <label className="mx-8">Payment Type</label>
+        <select
+          className="p-2 border-2 border-amber-400 lg:mx-8"
+          value={paymentType}
+          onChange={(e) => setPaymentType(e.target.value)}
+        >
+          <option value="platform">Platform</option>
+          <option value="other">Other</option>
+        </select>
 
         <label className="mx-8">Payment Amount</label>
         <input
