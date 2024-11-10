@@ -9,7 +9,7 @@ export default function ListOrder(props : ListOrderProps) {
   return (
     <div className="p-4 w-full h-full flex items-center justify-center">
       {orderItems.length == 0 ? (
-        <div className="flex items-center justify-center ambermodal w-80 h-40 bg-white">
+        <div className="flex items-center justify-center ambermodal lg:w-80 lg:h-40 p-8 lg:p-0 bg-white">
           <p className="text-3xl font-bold">No Orders</p>
         </div>
       ) : (

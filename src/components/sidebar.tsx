@@ -36,25 +36,25 @@ export default function Sidebar() {
                 <input
                   type="text"
                   placeholder="EMS, Registered Mail, a big box"
-                  className="p-2 border-2 border-amber-400 mx-8"
+                  className="p-2 border-2 border-amber-400 lg:mx-8"
                 />
                 <label className="mx-8">Package Addressed</label>
                 <input
                   type="text"
                   placeholder="Your Name, The Package Receiver"
-                  className="p-2 border-2 border-amber-400 mx-8"
+                  className="p-2 border-2 border-amber-400 lg:mx-8"
                 />
                 <label className="mx-8">Will be receiving at</label>
                 <input
                   type="text"
                   placeholder="Room Number, Place of Meetup"
-                  className="p-2 border-2 border-amber-400 mx-8"
+                  className="p-2 border-2 border-amber-400 lg:mx-8"
                 />
                 <label className="mx-8">Receiver Phone Number</label>
                 <input
                   type="text"
                   placeholder="Receiver Phone"
-                  className="p-2 border-2 border-amber-400 mx-8"
+                  className="p-2 border-2 border-amber-400 lg:mx-8"
                 />
                 <button
                   type="submit"
