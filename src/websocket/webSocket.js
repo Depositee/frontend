@@ -6,10 +6,10 @@ const EXCHANGE = 'notification_exchange';
 
 const wss = new WebSocketServer({ port: 8088 });
 
-const startRabbitMQConsumer = async (userId) => {
+const userConsumers = {}; // Store active consumers by user ID
+
+const startRabbitMQConsumer = async (userId, channel) => {
   try {
-    const connection = await amqp.connect(RABBITMQ_URL);
-    const channel = await connection.createChannel();
     await channel.assertExchange(EXCHANGE, 'topic', { durable: true });
 
     const queue = `user.${userId}.notification`;
@@ -20,10 +20,10 @@ const startRabbitMQConsumer = async (userId) => {
 
     console.log(`Waiting for messages for user ${userId}...`);
 
-    channel.consume(queue, async(msg) => {
+    channel.consume(queue, async (msg) => {
       const messageContent = msg.content.toString();
 
-      wss.clients.forEach(client  => {
+      wss.clients.forEach((client) => {
         if (client.readyState === client.OPEN) {
           client.send(messageContent);
         }
@@ -39,15 +39,44 @@ const startRabbitMQConsumer = async (userId) => {
   }
 };
 
-wss.on('connection', (ws , req) => {
+const stopRabbitMQConsumer = async (userId) => {
+  const consumer = userConsumers[userId];
+  if (consumer) {
+    try {
+      await consumer.channel.close(); // Close the channel to stop consuming
+      console.log(`Stopped RabbitMQ consumer for user ${userId}`);
+      delete userConsumers[userId]; // Remove the consumer from the active list
+    } catch (error) {
+      console.error('Error stopping RabbitMQ Consumer:', error);
+    }
+  }
+};
 
+wss.on('connection', (ws, req) => {
   const userId = req.url.split('userId=')[1];
+  
   try {
     console.log(`Client connected with userId: ${userId}`);
-    startRabbitMQConsumer(userId); 
+
+    // If there's an active consumer for the previous user, stop it
+    if (userConsumers[userId]) {
+      stopRabbitMQConsumer(userId);
+    }
+
+    // Create a new connection to RabbitMQ and start consuming messages for the new user
+    amqp.connect(RABBITMQ_URL).then((connection) => {
+      return connection.createChannel().then((channel) => {
+        userConsumers[userId] = { channel }; // Store the active consumer
+        startRabbitMQConsumer(userId, channel);
+      });
+    }).catch((error) => {
+      console.error('Error connecting to RabbitMQ:', error);
+      ws.close();
+    });
 
     ws.on('close', () => {
       console.log(`Client disconnected for userId: ${userId}`);
+      stopRabbitMQConsumer(userId); // Clean up when the client disconnects
     });
 
   } catch (error) {
@@ -55,4 +84,3 @@ wss.on('connection', (ws , req) => {
     ws.close(); 
   }
 });
-
