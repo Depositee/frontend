@@ -1,11 +1,12 @@
-const API_URL = 'http://localhost:8081';
+import { GATE_WAY_PORT, GATE_WAY_URL } from "@/config/config";
+const API_URL = `http://${GATE_WAY_URL}:${GATE_WAY_PORT}`;
 
 export default async function createOrder(
-  package_name: string, 
-  package_description: string, 
-  package_weight: number, 
-  payment_type: string, 
-  payment_amount: number,
+  package_name: string,
+  package_description: string,
+  package_weight: number,
+  payment_type: string,
+  payment_amount: number
 ) {
   try {
     const response = await fetch(`${API_URL}/order`, {
@@ -13,7 +14,7 @@ export default async function createOrder(
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include", 
+      credentials: "include",
       body: JSON.stringify({
         package_name: package_name,
         package_description: package_description,
@@ -26,9 +27,9 @@ export default async function createOrder(
     if (!response.ok) {
       throw new Error(`Error create order: ${response.statusText}`);
     }
-    return await response.json(); 
+    return await response.json();
   } catch (error) {
     console.error(`Error create order`, error);
-    return null; 
+    return null;
   }
 }

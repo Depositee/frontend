@@ -1,15 +1,16 @@
-const API_URL = 'http://localhost:8081';
+import { GATE_WAY_PORT, GATE_WAY_URL } from "@/config/config";
+const API_URL = `http://${GATE_WAY_URL}:${GATE_WAY_PORT}`;
 
 export default async function updateOrderById(
   id: string,
   depositorId: string,
-  package_id: string, 
-  package_name: string, 
-  package_description: string, 
-  package_weight: number, 
-  payment_type: string, 
-  payment_amount: number, 
-  status: string 
+  package_id: string,
+  package_name: string,
+  package_description: string,
+  package_weight: number,
+  payment_type: string,
+  payment_amount: number,
+  status: string
 ) {
   try {
     const response = await fetch(`${API_URL}/order/${id}`, {
@@ -17,7 +18,7 @@ export default async function updateOrderById(
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include", 
+      credentials: "include",
       body: JSON.stringify({
         depositorId: depositorId,
         package_id: package_id,
@@ -33,9 +34,9 @@ export default async function updateOrderById(
     if (!response.ok) {
       throw new Error(`Error updating order: ${response.statusText}`);
     }
-    return await response.json(); 
+    return await response.json();
   } catch (error) {
     console.error(`Error updating order with id ${id}:`, error);
-    return null; 
+    return null;
   }
 }
