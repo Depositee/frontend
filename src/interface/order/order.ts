@@ -5,7 +5,7 @@ export interface Order{
     package_id : string;
     status : string;
     payment_type : string;
-    payment_amount : string;
+    payment_amount : number;
     package_name: string;
     package_description: string;
     package_weight : number;

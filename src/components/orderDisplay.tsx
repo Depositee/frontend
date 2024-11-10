@@ -1,8 +1,16 @@
 import { Order } from "@/interface/order/order";
+import { useRouter } from "next/navigation";
 
 export default function OrderDisplay({ orderItem }: { orderItem: Order }) {
+
+  const router = useRouter()
+
+  const handleOnClick = () =>{
+    router.push(`/order/${orderItem.id}`)
+  }
+  
   return (
-    <div className="flex flex-col bg-white p-4 card min-h-48">
+    <div className="flex flex-col bg-white p-4 card min-h-48" onClick={handleOnClick}>
       <div className="flex flex-col space-y-2">
         <h2 className="text-xl font-semibold text-gray-800">{orderItem.package_name}</h2>
         <p className="text-sm text-gray-600">{orderItem.package_description}</p>
