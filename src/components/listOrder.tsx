@@ -1,21 +1,11 @@
 "use client";
-import { GetMyOrders, Order } from "@/interface/order/order";
 import OrderDisplay from "./orderDisplay";
-import { useEffect } from "react";
-import getMyOrders from "@/api/order/getMyOrder.api";
-
 interface ListOrderProps{
   orderItems : Order[]
 }
 
 export default function ListOrder(props : ListOrderProps) {
-  const orderItems = props.orderItems
-  const fetchMyOrders = async () => {
-    const myOrders: GetMyOrders = await getMyOrders();
-    console.log("my order", myOrders);
-  useEffect(() => {
-    fetchMyOrders();
-  }, []);
+  const orderItems = props.orderItems;
   return (
     <div className="p-4 w-full h-full flex items-center justify-center">
       {orderItems.length == 0 ? (
