@@ -1,5 +1,5 @@
 "use client";
-import { Order } from "@/interface/order/order";
+import { GetMyOrders, Order } from "@/interface/order/order";
 import OrderDisplay from "./orderDisplay";
 import { useEffect } from "react";
 import getMyOrders from "@/api/order/getMyOrder.api";
@@ -13,10 +13,6 @@ export default function ListOrder(props : ListOrderProps) {
   const fetchMyOrders = async () => {
     const myOrders: GetMyOrders = await getMyOrders();
     console.log("my order", myOrders);
-    if (myOrders.success && myOrders.data.data) {
-      setOrderItems(myOrders.data.data);
-    }
-  };
   useEffect(() => {
     fetchMyOrders();
   }, []);
