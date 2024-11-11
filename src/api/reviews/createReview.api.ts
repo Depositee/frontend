@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { GATE_WAY_URL } from "@/config/config";
 const API_URL = `http://${GATE_WAY_URL}`;
 
@@ -25,7 +26,6 @@ export default async function createReview(
     }
     return await response.json();
   } catch (error) {
-    console.error(`Error create review`, error);
-    return null;
+    throw new Error(`Error create review`);
   }
 }
