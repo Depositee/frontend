@@ -2,12 +2,15 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 import { toast } from 'react-toastify';
 
-interface ErrorContextType {
+interface TErrorContext {
   error: string | null;
   setError: (message: string | null) => void;
 }
 
-const ErrorContext = createContext<ErrorContextType | undefined>(undefined);
+export const ErrorContext = createContext<TErrorContext>({
+  error: null,
+  setError: () => {},
+});
 
 export const useErrorHandler = () => {
   const context = useContext(ErrorContext);
@@ -23,6 +26,7 @@ export const ErrorProvider = ({ children }: { children: ReactNode }) => {
   React.useEffect(() => {
     if (error) {
       toast.error(error);
+      setError(null)
     }
   }, [error]);
 

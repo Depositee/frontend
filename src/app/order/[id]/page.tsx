@@ -1,16 +1,17 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext} from "react";
 import Sidebar from "@/components/sidebar";
 import { Order } from "@/interface/order/order";
 import getOrderById from "@/api/order/getOrderById.api";
 import { useParams } from "next/navigation";
 import updateOrderById from "@/api/order/updateOrder.api";
 import Loading from "@/components/loading";
+import { ErrorContext} from "@/contexts/ErrorContext";
 
 export default function UpdateOrderPage() {
   const { id } = useParams<{ id: string }>();
   const [orderData, setOrderData] = useState<Order | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const {setError} = useContext(ErrorContext)
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -18,7 +19,7 @@ export default function UpdateOrderPage() {
       if (order.success && order.data.data) {
         setOrderData(order.data.data);
       } else {
-        setErrorMessage(order.error);
+        setError(order.error);
       }
     };
 
@@ -44,24 +45,20 @@ export default function UpdateOrderPage() {
           window.location.reload();
         } else {
           const errorMessage = updatedOrder.error;
-          setErrorMessage(errorMessage);
+          setError(errorMessage);
         }
       } catch (error: unknown) {
         if (error instanceof Error) {
           const errorMsg =
             error.message ||
             "An unexpected error occurred. Please try again later.";
-          setErrorMessage(errorMsg);
+          setError(errorMsg);
         } else {
           // Handle the case when error is not an instance of Error
           const errorMsg =
             "An unexpected error occurred. Please try again later.";
-          setErrorMessage(errorMsg);
+          setError(errorMsg);
         }
-        // const errorMsg =
-        //   error?.message ||
-        //   "An unexpected error occurred. Please try again later.";
-        // setErrorMessage(errorMsg);
       }
     }
   };
@@ -111,12 +108,6 @@ export default function UpdateOrderPage() {
         <Sidebar />
 
         <div className="flex flex-col w-full max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg overflow-y-scroll">
-          {/* Show error message if there is one */}
-          {errorMessage && (
-            <div className="bg-red-100 text-red-800 p-4 rounded-lg mb-4">
-              <strong></strong> {errorMessage}
-            </div>
-          )}
           {orderData ? (
             <>
               <h2 className="text-2xl font-semibold mb-4">
