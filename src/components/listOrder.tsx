@@ -14,7 +14,7 @@ export default function ListOrder(props: ListOrderProps) {
           <p className="text-3xl font-bold">No Orders</p>
         </div>
       ) : (
-        <div className="w0full h-full grid md:grid-cols-2 xl:grid-cols-4 overflow-y-auto gap-4">
+        <div className="w-full grid md:grid-cols-2 xl:grid-cols-4 overflow-y-auto gap-4 p-4">
           {orderItems.map((orderItem, index) => {
             return (
               <OrderDisplay key={index} orderItem={orderItem}></OrderDisplay>
