@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
-import { GATE_WAY_PORT, GATE_WAY_URL } from "@/config/config";
-const API_URL = `http://${GATE_WAY_URL}:${GATE_WAY_PORT}`;
+import { GATE_WAY_URL } from "@/config/config";
+const API_URL = `http://${GATE_WAY_URL}`;
 export default async function register(
   username: string,
   email: string,

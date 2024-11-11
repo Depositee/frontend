@@ -1,10 +1,10 @@
 import { deleteCookie } from "cookies-next";
 import { toast } from "react-toastify";
-import { GATE_WAY_PORT, GATE_WAY_URL } from "@/config/config";
+import { GATE_WAY_URL } from "@/config/config";
 import "react-toastify/dist/ReactToastify.css";
 
 export default async function logout() {
-  const API_URL = `http://${GATE_WAY_URL}:${GATE_WAY_PORT}/auth/logout`;
+  const API_URL = `http://${GATE_WAY_URL}/auth/logout`;
   const response = await fetch(API_URL, {
     method: "POST",
     headers: {
