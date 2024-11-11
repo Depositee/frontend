@@ -23,9 +23,10 @@ export default function LoginPage(){
                 setCurrentUser(currentUser)
                 router.push("/")
             }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             setIsLogin(false);
-            console.error("Error during login:", error);
+            throw new Error ("Error during login please check username and password");
         }
     }
     return (

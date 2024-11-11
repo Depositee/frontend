@@ -11,10 +11,13 @@ import getUserData from "@/api/auth/getUserData.api";
 import { GetUserData } from "@/interface/auth/user";
 import ReviewPopup from "../components/ReviewPopup";
 import Review from "../components/Review";
+import { getNextPackageStatus, getUpdateButtonText } from "../utils/updateOrder.util";
+import { AuthContext } from "@/contexts/AuthContext";
 
 export default function UpdateOrderPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
+  const {isLogin , currentUser} = useContext(AuthContext)
   const [orderData, setOrderData] = useState<Order | null>(null);
   const [depositorUsername, setDepositorUsername] = useState<string | null>(null);
   const [depositeeUsername, setDepositeeUsername] = useState<string | null>(null);
@@ -87,7 +90,7 @@ export default function UpdateOrderPage() {
           orderData.package_weight,
           orderData.payment_type,
           orderData.payment_amount,
-          getNextPackageStatus() ?? orderData.status
+          getNextPackageStatus(orderData) ?? orderData.status
         );
         if (updatedOrder.success) {
           window.location.reload();
@@ -102,7 +105,6 @@ export default function UpdateOrderPage() {
             "An unexpected error occurred. Please try again later.";
           setError(errorMsg);
         } else {
-          // Handle the case when error is not an instance of Error
           const errorMsg =
             "An unexpected error occurred. Please try again later.";
           setError(errorMsg);
@@ -111,44 +113,22 @@ export default function UpdateOrderPage() {
     }
   };
 
-  const getNextPackageStatus = () => {
-    if (!orderData?.status) return;
-
-    switch (orderData.status) {
-      case "placed":
-        return "reserved";
-      case "reserved":
-        return "received";
-      case "received":
-        return "completed";
-      case "completed":
-        return "completed";
-      default:
-        return "Unknown status";
+  const isUpdateable = () =>{
+    if(orderData && orderData.status === 'placed'){
+      return true
     }
-  };
-
-  const getUpdateButtonText = () => {
-    let resultText = "Unknown status";
-    switch (orderData?.status) {
-      case "placed":
-        resultText = "Proceed with reserving the package";
-        break;
-      case "reserved":
-        resultText = "Proceed with receiving the package";
-        break;
-      case "received":
-        resultText = "Complete the package transaction";
-        break;
-      case "completed":
-        resultText = "Package transaction is already completed";
-        break;
-      default:
-        resultText = "Unknown status";
-        break;
+    if(orderData && orderData.depositee_id && isLogin && currentUser?.data.user){
+      return orderData.depositee_id === currentUser.data.user.id
     }
-    return resultText;
-  };
+    return false
+  }
+
+  const isReviewable = () =>{
+    if(orderData && orderData.depositee_id && isLogin && currentUser?.data.user){
+      return orderData.depositor_id === currentUser.data.user.id
+    }
+    return false
+  }
 
   return (
     <div className="w-full flex justify-center bg-amber-100 text-stone-900/80 h-screen p-4 pb-40 md:pb-20">
@@ -269,7 +249,7 @@ export default function UpdateOrderPage() {
                       >
                         Profile
                       </button>
-                     {orderData.status && orderData.status === 'completed'? 
+                     {orderData.status && orderData.status === 'completed' && isReviewable() ? 
                       <button
                         className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200"
                         onClick={handleReviewButton}
@@ -299,12 +279,12 @@ export default function UpdateOrderPage() {
                   />
                 </div>
                 {/* Button at the bottom right */}
-                {orderData.status !== "completed" ? (
+                {orderData.status !== "completed" && isUpdateable() ? (
                   <button
                     onClick={handleSubmit}
                     className="flex align-bottom bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200"
                   >
-                    {getUpdateButtonText()}
+                    {getUpdateButtonText(orderData)}
                   </button>
                 ) : null}
               </div>
