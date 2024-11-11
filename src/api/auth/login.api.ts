@@ -1,8 +1,8 @@
 import { setCookie } from "cookies-next";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import { GATE_WAY_URL } from "@/config/config";
+
 export default async function login(email: string, password: string) {
   const API_URL = `http://${GATE_WAY_URL}/auth/login`;
   const response = await fetch(API_URL, {
@@ -23,6 +23,5 @@ export default async function login(email: string, password: string) {
     return data;
   } else {
     toast.error("Incorrect username/password\nor Account does not exist");
-    console.error("Login failed");
   }
 }
