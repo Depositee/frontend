@@ -3,6 +3,8 @@ export interface UserData {
     username : string
     firstName? : string,
     lastName? : string
+    phoneNumber? : string,
+    roomNumber? : string,
     role? : number
 }
 
