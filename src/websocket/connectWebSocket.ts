@@ -14,7 +14,7 @@ export const connectWebSocket = (user: UserData) => {
   }
 
   const createWebSocket = () => {
-    const ws = new WebSocket(`ws://${GATE_WAY_URL}?userId=${userId}`);
+    const ws = new WebSocket(`ws://${GATE_WAY_URL}/ws?userId=${userId}`);
     currentWebSocket = ws;
 
     ws.onmessage = (event) => {
