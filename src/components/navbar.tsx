@@ -1,13 +1,15 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Image from "next/image";
 import NavItem from "./navItems";
 import { AuthContext } from "@/contexts/AuthContext";
 import logout from "@/api/auth/logout.api";
+import { UserData } from "@/interface/auth/user";
+import { connectWebSocket } from "@/websocket/connectWebSocket";
 
 export default function Navbar() {
 
-  const { isLogin , setIsLogin , setCurrentUser} = useContext(AuthContext);
+  const { isLogin , setIsLogin ,currentUser, setCurrentUser} = useContext(AuthContext);
 
   const handleLogout = async() =>{
     await logout()
@@ -15,6 +17,18 @@ export default function Navbar() {
     setCurrentUser(null)
     window.location.reload()
   }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (isLogin && currentUser != null && currentUser.data.user) {
+        const userData: UserData = currentUser.data.user;
+        connectWebSocket(userData);
+      }
+    }, 500); 
+
+    return () => clearTimeout(timer);
+  }, [currentUser, isLogin]);
+
   return (
     <div className="h-16 fixed top-0 left-0 right-0 z-30 flex flex-row justify-end items-center px-8 gap-8">
       {<NavItem path="/" title="Home" />}
