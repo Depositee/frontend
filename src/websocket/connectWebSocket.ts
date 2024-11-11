@@ -1,3 +1,4 @@
+import { GATE_WAY_URL } from "@/config/config";
 import { UserData } from "@/interface/auth/user";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,7 +14,7 @@ export const connectWebSocket = (user: UserData) => {
   }
 
   const createWebSocket = () => {
-    const ws = new WebSocket(`ws://localhost:8088?userId=${userId}`);
+    const ws = new WebSocket(`ws://${GATE_WAY_URL}?userId=${userId}`);
     currentWebSocket = ws;
 
     ws.onmessage = (event) => {
