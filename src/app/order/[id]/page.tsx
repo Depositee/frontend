@@ -5,6 +5,7 @@ import { Order } from "@/interface/order/order";
 import getOrderById from "@/api/order/getOrderById.api";
 import { useParams } from "next/navigation";
 import updateOrderById from "@/api/order/updateOrder.api";
+import Loading from "@/components/loading";
 
 export default function UpdateOrderPage() {
   const { id } = useParams<{ id: string }>();
@@ -111,7 +112,6 @@ export default function UpdateOrderPage() {
 
         <div className="flex flex-col w-full max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg overflow-y-scroll">
           {/* Show error message if there is one */}
-
           {errorMessage && (
             <div className="bg-red-100 text-red-800 p-4 rounded-lg mb-4">
               <strong>Error:</strong> {errorMessage}
@@ -254,7 +254,7 @@ export default function UpdateOrderPage() {
               </form>
             </>
           ) : (
-            <div>Loading...</div>
+            <Loading/>
           )}
         </div>
       </div>
