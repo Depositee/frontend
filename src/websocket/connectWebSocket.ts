@@ -13,7 +13,7 @@ export const connectWebSocket = (user: UserData) => {
   }
 
   const createWebSocket = () => {
-    const ws = new WebSocket(`ws://localhost:8088?userId=${userId}`);
+    const ws = new WebSocket(`ws://${window.location.host}/api/notifications/${userId}`);
     currentWebSocket = ws;
 
     ws.onmessage = (event) => {
