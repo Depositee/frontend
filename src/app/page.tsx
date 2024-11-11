@@ -4,8 +4,6 @@ import ListOrder from "@/components/listOrder";
 import Sidebar from "@/components/sidebar";
 import { GetMyOrders, Order } from "@/interface/order/order";
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
   const [orderItems, setOrderItems] = useState<Order[]>([]);
@@ -26,7 +24,6 @@ export default function Home() {
         <ListOrder orderItems={orderItems}/>
         <Sidebar />
       </div>
-      <ToastContainer />
     </div>
   );
 }

@@ -11,6 +11,11 @@ import '@fontsource/geist-mono/700.css';
 import '@fontsource/geist-mono/800.css';
 import '@fontsource/geist-mono/900.css';
 import { AuthProvider } from "@/contexts/AuthContext";
+import ErrorBoundary from "@/boundary/ErrorBoundary";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import React from "react";
+import Loading from "@/components/loading";
 
 export const metadata: Metadata = {
   title: "Depositee",
@@ -27,10 +32,19 @@ export default function RootLayout({
       <body
         className={`font-sans`}
       >
-        <AuthProvider>
-          <Navbar/>
-          {children}
-        </AuthProvider>
+        <ErrorBoundary>
+          <AuthProvider>
+            <React.Suspense fallback={<Loading />}>
+             <Navbar/>
+            </React.Suspense>
+            <React.Suspense fallback={<Loading />}>
+              {children}
+            </React.Suspense>
+            <React.Suspense fallback={<Loading />}>
+              <ToastContainer/>
+            </React.Suspense>
+          </AuthProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );
