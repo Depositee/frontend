@@ -1,15 +1,17 @@
 "use client";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import NavItem from "./navItems";
 import { AuthContext } from "@/contexts/AuthContext";
 import logout from "@/api/auth/logout.api";
-import { UserData } from "@/interface/auth/user";
+import { GetUserData, UserData } from "@/interface/auth/user";
 import { connectWebSocket } from "@/websocket/connectWebSocket";
+import getUserData from "@/api/auth/getUserData.api";
 
 export default function Navbar() {
 
   const { isLogin , setIsLogin ,currentUser, setCurrentUser} = useContext(AuthContext);
+  const [userName , setUserName] = useState<string>('')
 
   const handleLogout = async() =>{
     await logout()
@@ -19,10 +21,15 @@ export default function Navbar() {
   }
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = setTimeout( async() => {
       if (isLogin && currentUser != null && currentUser.data.user) {
         const userData: UserData = currentUser.data.user;
         connectWebSocket(userData);
+        const userProfile : GetUserData | undefined= await getUserData(userData.id)
+        if(userProfile){
+          setUserName(userProfile.data.username)
+        }
+
       }
     }, 500); 
 
@@ -40,7 +47,13 @@ export default function Navbar() {
           <NavItem path="/register" title="Register" />
         </>
       )}
-
+      {
+        userName && userName !== '' ? 
+          <div className="relative justify-center align-center flex">
+            {userName}
+          </div> 
+        : null  
+      }
       <div className="relative h-full justify-center align-center flex">
         <Image src="/globe.svg" alt="logo" width={24} height={24} />
       </div>
