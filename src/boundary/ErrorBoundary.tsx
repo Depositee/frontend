@@ -1,6 +1,6 @@
 "use client"
 import React, { Component, ReactNode } from 'react';
-import { toast } from 'react-toastify';
+import { useErrorHandler } from '@/contexts/ErrorContext'; 
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -20,9 +20,11 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     return { hasError: true };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error("Error caught by ErrorBoundary:", error, errorInfo);
-    toast.error("An unexpected error occurred. Please try again.");
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { setError } = useErrorHandler(); 
+    setError(error.message); 
   }
 
   render() {

@@ -16,6 +16,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import React from "react";
 import Loading from "@/components/loading";
+import { ErrorProvider } from "@/contexts/ErrorContext";
 
 export const metadata: Metadata = {
   title: "Depositee",
@@ -32,19 +33,21 @@ export default function RootLayout({
       <body
         className={`font-sans`}
       >
-        <ErrorBoundary>
-          <AuthProvider>
-            <React.Suspense fallback={<Loading />}>
-             <Navbar/>
-            </React.Suspense>
-            <React.Suspense fallback={<Loading />}>
-              {children}
-            </React.Suspense>
-            <React.Suspense fallback={<Loading />}>
-              <ToastContainer/>
-            </React.Suspense>
-          </AuthProvider>
-        </ErrorBoundary>
+        <ErrorProvider>
+          <ErrorBoundary>
+            <AuthProvider>
+              <React.Suspense fallback={<Loading />}>
+              <Navbar/>
+              </React.Suspense>
+              <React.Suspense fallback={<Loading />}>
+                {children}
+              </React.Suspense>
+              <React.Suspense fallback={<Loading />}>
+                <ToastContainer/>
+              </React.Suspense>
+            </AuthProvider>
+          </ErrorBoundary>
+        </ErrorProvider>
       </body>
     </html>
   );

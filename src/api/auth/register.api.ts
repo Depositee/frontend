@@ -1,5 +1,5 @@
-import { toast } from "react-toastify";
 import { GATE_WAY_URL } from "@/config/config";
+import { toast } from "react-toastify";
 const API_URL = `http://${GATE_WAY_URL}`;
 export default async function register(
   username: string,
@@ -27,9 +27,9 @@ export default async function register(
   });
   if (response.ok) {
     const data = await response.json();
+    toast.success("Register Success");
     return data;
   } else {
-    toast.error("Invalid register data please check");
-    console.error("Register failed");
+    toast.error("Invalid register data please check")
   }
 }

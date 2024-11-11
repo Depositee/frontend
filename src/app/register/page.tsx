@@ -31,7 +31,7 @@ export default function RegisterPage() {
         router.push("/login");
       }
     } catch (error) {
-      console.error("Error during registration:", error);
+      throw new Error("Error during registration:"+ error);
     }
   };
 

@@ -35,8 +35,8 @@ export default async function updateOrderById(
       throw new Error(`Error updating order: ${response.statusText}`);
     }
     return await response.json();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    console.error(`Error updating order with id ${id}:`, error);
-    return null;
+      throw new Error(`Error updating order with id ${id}`)
   }
 }

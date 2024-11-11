@@ -114,7 +114,7 @@ export default function UpdateOrderPage() {
           {/* Show error message if there is one */}
           {errorMessage && (
             <div className="bg-red-100 text-red-800 p-4 rounded-lg mb-4">
-              <strong>Error:</strong> {errorMessage}
+              <strong></strong> {errorMessage}
             </div>
           )}
           {orderData ? (
