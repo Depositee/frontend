@@ -1,12 +1,15 @@
+import createReview from "@/api/reviews/createReview.api";
 import { useState } from "react";
 
 interface ReviewProps {
+    depositeeId : string;
     onClose: () => void;
-  }
+}
 
 const Review = (props : ReviewProps) => {
   const [rating, setRating] = useState<number>(0);
   const [hoverRating, setHoverRating] = useState<number>(0);
+  const [reviewText, setReviewText] = useState<string>("");
   const closePopup = props.onClose
 
   const handleClick = (ratingValue: number) => {
@@ -21,9 +24,16 @@ const Review = (props : ReviewProps) => {
     setHoverRating(0);
   };
   
-  const handleSubmit = () =>{
+  const handleSubmit = async() =>{
+    await createReview(
+      props.depositeeId,
+      rating,
+      reviewText
+    )
     closePopup()
   }
+
+  const ratingScore = [1, 2, 3, 4, 5]
 
   return (
     <div className="flex flex-col items-center p-4 max-w-md mx-auto bg-white rounded-lg shadow-md space-y-4">
@@ -31,7 +41,7 @@ const Review = (props : ReviewProps) => {
       
       {/* Star Rating */}
       <div className="flex space-x-2">
-        {[1, 2, 3, 4, 5].map((star) => (
+        {ratingScore.map((star) => (
           <svg
             key={star}
             xmlns="http://www.w3.org/2000/svg"
@@ -51,6 +61,23 @@ const Review = (props : ReviewProps) => {
       <p className="text-lg text-gray-600">
         Your Rating: <span className="font-bold text-gray-800">{rating}</span>
       </p>
+      {/* Review Text Input */}
+      <div className="w-full">
+        <label
+          htmlFor="reviewText"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Your Review:
+        </label>
+        <textarea
+          id="reviewText"
+          value={reviewText}
+          onChange={(e) => setReviewText(e.target.value)}
+          rows={4}
+          className="w-full p-2 mt-1 border rounded-md bg-gray-100 text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Write your review here..."
+        />
+      </div>
 
       {/* Submit Button */}
       <button

@@ -294,9 +294,12 @@ export default function UpdateOrderPage() {
                   </button>
                 ) : null}
               </div>
-              {showPopup && (
+              {showPopup && orderData.depositee_id && (
               <ReviewPopup onClose={onCloseModal}>
-                <Review onClose={onCloseModal}/>
+                <Review 
+                  onClose={onCloseModal}
+                  depositeeId={orderData.depositee_id}
+                />
               </ReviewPopup>
         )}
             </>
