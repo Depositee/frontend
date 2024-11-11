@@ -3,7 +3,7 @@ import { useState, useEffect, useContext} from "react";
 import Sidebar from "@/components/sidebar";
 import { Order } from "@/interface/order/order";
 import getOrderById from "@/api/order/getOrderById.api";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import updateOrderById from "@/api/order/updateOrder.api";
 import Loading from "@/components/loading";
 import { ErrorContext} from "@/contexts/ErrorContext";
@@ -14,6 +14,7 @@ import Review from "../components/Review";
 
 export default function UpdateOrderPage() {
   const { id } = useParams<{ id: string }>();
+  const router = useRouter();
   const [orderData, setOrderData] = useState<Order | null>(null);
   const [depositorUsername, setDepositorUsername] = useState<string | null>(null);
   const [depositeeUsername, setDepositeeUsername] = useState<string | null>(null);
@@ -64,6 +65,13 @@ export default function UpdateOrderPage() {
   const handleReviewButton = async(e : React.FormEvent) =>{
     e.preventDefault()
     setShowPopup(true)
+  }
+
+  const handleDepositeeClick = (e : React.FormEvent) =>{
+    e.preventDefault()
+    if(orderData && orderData.depositee_id){
+      router.push(`/review/${orderData?.depositee_id}`)
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -255,6 +263,12 @@ export default function UpdateOrderPage() {
                         className="w-full p-2 border rounded-md bg-gray-100 text-gray-600"
                         disabled
                       />
+                      <button
+                        className="bg-blue-400 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200"
+                        onClick={handleDepositeeClick}
+                      >
+                        Profile
+                      </button>
                      {orderData.status && orderData.status === 'completed'? 
                       <button
                         className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200"

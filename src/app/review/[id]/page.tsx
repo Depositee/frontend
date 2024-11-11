@@ -9,25 +9,25 @@ import { useEffect, useState } from "react";
 
 
 const UserProfilePage = () => {
-  const { userId } = useParams<{ userId: string }>();
+  const { id } = useParams<{ id: string }>();
   const [userProfile, setUserProfile] = useState<UserData | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
-    if (userId) {
-      fetchUserProfile(userId as string);
-      fetchUserReviews(userId as string);
+    if (id) {
+      fetchUserProfile();
+      fetchUserReviews();
     }
-  }, [userId]);
+  }, [id]);
 
-  const fetchUserProfile = async (id: string) => {
+  const fetchUserProfile = async () => {
     const userData : GetUserData | undefined = await getUserData(id)
     if(userData){
         setUserProfile(userData.data)
     }
   };
 
-  const fetchUserReviews = async (id: string) => {
+  const fetchUserReviews = async () => {
     const userReviews : Review[] = await getReviewByUserId(id) ?? []
     setReviews(userReviews)
   };
