@@ -37,8 +37,8 @@ export default function RegisterPage() {
 
   return (
     <>
-      <div className="bg-amber-100 text-stone-900/80 h-dvh pt-16 p-4 w-full flex items-center justify-center ">
-        <div className="flex gap-4 flex-col bg-white w-[36rem] h-auto p-4 items-center justify-center py-8 stonemodal">
+      <div className="bg-amber-100 text-stone-900/80 h-dvh pt-16 p-4 w-full flex items-center justify-center overflow-auto">
+        <div className="flex gap-4 flex-col bg-white w-[36rem] h-auto p-4 items-center justify-center py-8 stonemodal mt-32">
           <h1 className="text-3xl font-bold">REGISTER</h1>
           <form className="w-full sm:px-16" onSubmit={handleSubmit}>
             <div className="mb-4">
