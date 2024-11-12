@@ -13,7 +13,6 @@ import '@fontsource/geist-mono/900.css';
 import { AuthProvider } from "@/contexts/AuthContext";
 import ErrorBoundary from "@/boundary/ErrorBoundary";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import React from "react";
 import Loading from "@/components/loading";
 import { ErrorProvider } from "@/contexts/ErrorContext";

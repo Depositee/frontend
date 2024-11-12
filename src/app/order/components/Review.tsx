@@ -36,7 +36,7 @@ const Review = (props : ReviewProps) => {
   const ratingScore = [1, 2, 3, 4, 5]
 
   return (
-    <div className="flex flex-col items-center p-4 max-w-md mx-auto bg-white rounded-lg shadow-md space-y-4">
+    <div className="flex flex-col items-center p-4 max-w-md mx-auto space-y-4">
       <h2 className="text-2xl font-semibold text-gray-800">Rate Your Experience</h2>
       
       {/* Star Rating */}
@@ -46,8 +46,9 @@ const Review = (props : ReviewProps) => {
             key={star}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
-            fill={star <= (hoverRating || rating) ? "gold" : "gray"}
-            className="w-8 h-8 cursor-pointer transition duration-200 transform hover:scale-110"
+            className={`w-8 h-8 cursor-pointer squishy-click ${
+              star <= (hoverRating || rating) ? "fill-amber-500" : "fill-gray-400"
+            }`}
             onClick={() => handleClick(star)}
             onMouseEnter={() => handleMouseEnter(star)}
             onMouseLeave={handleMouseLeave}
@@ -59,7 +60,7 @@ const Review = (props : ReviewProps) => {
 
       {/* Display Selected Rating */}
       <p className="text-lg text-gray-600">
-        Your Rating: <span className="font-bold text-gray-800">{rating}</span>
+        Your Rating: <span className="font-bold text-gray-800">{rating}★</span>
       </p>
       {/* Review Text Input */}
       <div className="w-full">
@@ -74,14 +75,14 @@ const Review = (props : ReviewProps) => {
           value={reviewText}
           onChange={(e) => setReviewText(e.target.value)}
           rows={4}
-          className="w-full p-2 mt-1 border rounded-md bg-gray-100 text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 mt-1 border-2 rounded-none border-stone-400 focus:border-amber-400 resize-none outline-none"
           placeholder="Write your review here..."
         />
       </div>
 
       {/* Submit Button */}
       <button
-        className="px-6 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition duration-200"
+        className="amberbtn font-bold"
         onClick={handleSubmit}
       >
         Submit Review

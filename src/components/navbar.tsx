@@ -12,12 +12,13 @@ export default function Navbar() {
 
   const { isLogin , setIsLogin ,currentUser, setCurrentUser} = useContext(AuthContext);
   const [userName , setUserName] = useState<string>('')
+  const [userID , setUserID] = useState<string>('')
 
   const handleLogout = async() =>{
     await logout()
     setIsLogin(false)
     setCurrentUser(null)
-    window.location.reload()
+    setUserName(null)
   }
 
   useEffect(() => {
@@ -28,6 +29,7 @@ export default function Navbar() {
         const userProfile : GetUserData | undefined= await getUserData(userData.id)
         if(userProfile){
           setUserName(userProfile.data.username)
+          setUserID(userData.id)
         }
 
       }
@@ -49,9 +51,7 @@ export default function Navbar() {
       )}
       {
         userName && userName !== '' ? 
-          <div className="relative justify-center align-center flex">
-            {userName}
-          </div> 
+          <NavItem  path={`/review/${userID}`} title={`@${userName}`}/>
         : null  
       }
       <div className="relative h-full justify-center align-center flex">

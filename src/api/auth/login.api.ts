@@ -1,6 +1,5 @@
 import { setCookie } from "cookies-next";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { GATE_WAY_URL } from "@/config/config";
 
 export default async function login(email: string, password: string) {

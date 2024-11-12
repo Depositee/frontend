@@ -1,7 +1,6 @@
 import { GATE_WAY_URL } from "@/config/config";
 import { UserData } from "@/interface/auth/user";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 let currentWebSocket: WebSocket | null = null;
 

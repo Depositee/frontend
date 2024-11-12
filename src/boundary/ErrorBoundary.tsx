@@ -23,8 +23,8 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { setError } = useErrorHandler(); 
-    setError(error.message); 
+    //const { setError } = useErrorHandler(); 
+    //setError(error.message); 
   }
 
   render() {

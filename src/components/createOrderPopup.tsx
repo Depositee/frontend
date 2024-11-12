@@ -20,7 +20,7 @@ export default function CreateOrderPopup({
         }}
         className="relative bg-white lg:p-16 ambermodal lg:min-w-[48rem] m-4 lg:m-0 p-4 mx-4 w-full lg:w-auto"
       >
-      <Image className="absolute top-4 right-4 z-10 cursor-pointer" src="/x.svg" alt="Close button" width={24} height={24} onClick={
+      <Image className="absolute top-4 right-4 z-10 cursor-pointer squishy-click" src="/x.svg" alt="Close button" width={24} height={24} onClick={
         onClose
       } />
         {children}

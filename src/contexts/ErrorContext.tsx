@@ -12,8 +12,7 @@ export const ErrorContext = createContext<TErrorContext>({
   setError: () => {},
 });
 
-export const useErrorHandler = () => {
-  const context = useContext(ErrorContext);
+export const useErrorHandler = (context:React.Context<TErrorContext>) => {
   if (!context) {
     throw new Error('useErrorHandler must be used within an ErrorProvider');
   }

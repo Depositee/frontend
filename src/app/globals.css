@@ -72,7 +72,7 @@
   }
   .redbutton:active{
     transition: all 0.25s ease;
-    @apply translate-x-0 translate-y-0 scale-x-110 scale-y-95 z-10 bg-red-400;
+    @apply translate-x-0 translate-y-0 scale-x-110 scale-y-95 z-10 bg-red-400 text-white;
     box-shadow: 0rem 0rem 0 0 theme('colors.red.400');
   }
   .ambermodal{
@@ -99,7 +99,206 @@
     transition: all 0.5s var(--bounce-ease);
     box-shadow: 0.5rem 0.5rem 0 0 theme('colors.red.400');
   }
+  .greenmodal{
+    @apply border-2 border-green-400 select-none;
+    
+    transition: all 0.5s var(--bounce-ease);
+    box-shadow: 0.5rem 0.5rem 0 0 theme('colors.green.400');
+  }
+  .greenbtn{
+    @apply border-2 border-green-400 cursor-pointer select-none px-4 py-2;
+    transition: transform 0.5s var(--bounce-ease), box-shadow 0.5s var(--bounce-ease), background-color 0.25s ease, color 0.25s ease;
+    box-shadow: 0.25rem 0.25rem 0 0 theme('colors.green.400');
+  }
+  .greenbtn:hover{
+    @apply -translate-x-1 -translate-y-1;
+    box-shadow: 0.5rem 0.5rem 0 0 theme('colors.green.400');
+  }
+  .greenbtn:active{
+    transition: all 0.25s ease;
+    @apply translate-x-0 translate-y-0 scale-x-110 scale-y-95 z-10 bg-green-400 text-white;
+    box-shadow: 0rem 0rem 0 0 theme('colors.green.400');
+  }
+  .bluemodal{
+    @apply border-2 border-blue-400 select-none;
+    
+    transition: all 0.5s var(--bounce-ease);
+    box-shadow: 0.5rem 0.5rem 0 0 theme('colors.blue.400');
+  }
+  .bluebtn{
+    @apply border-2 border-blue-400 cursor-pointer select-none px-4 py-2;
+    transition: transform 0.5s var(--bounce-ease), box-shadow 0.5s var(--bounce-ease), background-color 0.25s ease, color 0.25s ease;
+    box-shadow: 0.25rem 0.25rem 0 0 theme('colors.blue.400');
+  }
+  .bluebtn:hover{
+    @apply -translate-x-1 -translate-y-1;
+    box-shadow: 0.5rem 0.5rem 0 0 theme('colors.blue.400');
+  }
+  .bluebtn:active{
+    transition: all 0.25s ease;
+    @apply translate-x-0 translate-y-0 scale-x-110 scale-y-95 z-10 bg-blue-400 text-white;
+    box-shadow: 0rem 0rem 0 0 theme('colors.blue.400');
+  }
+  .bounce-anim{
+    animation-timing-function: var(--bounce-ease);
+  }
+
+  .squishy-click{
+    @apply cursor-pointer select-none;
+    transition: transform 0.5s var(--bounce-ease), box-shadow 0.5s var(--bounce-ease), background-color 0.25s ease, color 0.25s ease, fill 0.25s ease;
+  }
+  .squishy-click:hover{
+    @apply scale-125;
+  }
+  .squishy-click:active{
+    transition: all 0.25s ease;
+    @apply scale-x-110 scale-y-75 z-10;
+  }
+  
 }
 :root{
   --bounce-ease: cubic-bezier(0.33, 2, 0, 0.25);
+}
+
+/** Used to define container behavior: width, position: fixed etc... **/
+.Toastify__toast-container {
+  @apply fixed z-40 p-4 w-dvw h-dvh pointer-events-none top-0 left-0 flex flex-col;
+}
+
+/** Used to define the position of the ToastContainer **/
+.Toastify__toast-container--top-left {
+  @apply items-start;
+}
+.Toastify__toast-container--top-center {
+  @apply items-start justify-center
+}
+.Toastify__toast-container--top-right {
+  @apply pt-16 items-end;
+}
+.Toastify__toast-container--bottom-left {
+  @apply items-end;
+}
+.Toastify__toast-container--bottom-center {
+  @apply items-end justify-center;
+}
+.Toastify__toast-container--bottom-right {
+  @apply items-end justify-end;
+}
+
+/** Classes for the displayed toast **/
+.Toastify__toast {
+  @apply px-4 py-6 bg-white mb-4 relative w-2/3 md:w-96 ml-8 pointer-events-auto mr-8 duration-0;
+}
+.Toastify__toast--rtl {
+}
+.Toastify__toast-body {
+  @apply mr-20 flex gap-4 items-center;
+}
+
+/** Used to position the icon **/
+.Toastify__toast-icon {
+  @apply top-2 left-2 h-6 w-6 flex-shrink-0;
+}
+
+
+
+
+/** handle the notification color and the text color based on the theme **/
+
+.Toastify__toast--success {
+  @apply greenmodal;
+}
+.Toastify__toast--info {
+  @apply pinkmodal;
+}
+.Toastify__toast--warning {
+  @apply ambermodal;
+}
+.Toastify__toast--error {
+  @apply redmodal;
+}
+
+
+.Toastify__progress-bar {
+  @apply absolute bottom-0 left-0 w-full h-2 bg-stone-400;
+}
+.Toastify__progress-bar--rtl {
+  @apply right-0 left-0;
+}
+.Toastify__progress-bar--info {
+  @apply bg-pink-600;
+}
+.Toastify__progress-bar--success {
+  @apply bg-green-600;
+}
+.Toastify__progress-bar--warning {
+  @apply bg-yellow-600;
+}
+.Toastify__progress-bar--error {
+  @apply bg-red-600;
+}
+
+
+/** Classes for the close button. Better use your own closeButton **/
+.Toastify__close-button {
+  @apply z-50 redbutton absolute bg-white top-2 -right-6 h-12 w-12 flex items-center justify-center p-0 flex-shrink-0;
+}
+
+.Toastify__bounce-enter--top-right
+{
+  animation: SlideFromRight 0.5s cubic-bezier(0.85, 1.58, 0.04, 0.92);
+}
+.Toastify__bounce-exit--top-right
+{
+  animation: SlideToRight 0.5s ease-in;
+}
+
+.Toastify__close-button
+.Toastify__close-button--default {
+}
+.Toastify__close-button > svg {
+  @apply h-6 w-6 fill-current;
+}
+.Toastify__close-button:hover,
+.Toastify__close-button:focus {
+}
+
+.Toastify__progress-bar--animated{
+  @apply ease-linear;
+  animation-name: Toastify__trackProgress;
+}
+
+@keyframes Toastify__trackProgress {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes SlideFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes SlideToRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(1000px);
+  }
+}
+
+
+
+.Toastify__toast[data-in="false"]
+{
+  @apply opacity-0;
+  transition: all 0.5s cubic-bezier(0, 0.54, 0, 1.24) !important;
 }

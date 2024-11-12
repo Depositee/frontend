@@ -13,6 +13,7 @@ import ReviewPopup from "../components/ReviewPopup";
 import Review from "../components/Review";
 import { getNextPackageStatus, getUpdateButtonText } from "../utils/updateOrder.util";
 import { AuthContext } from "@/contexts/AuthContext";
+import { capitalizeFirstLetter } from "@/utils/utils";
 
 export default function UpdateOrderPage() {
   const { id } = useParams<{ id: string }>();
@@ -37,7 +38,6 @@ export default function UpdateOrderPage() {
     }
   }, [orderData]);
 
-  
   const fetchOrder = async () => {
     const order = await getOrderById(id);
     if (order.success && order.data.data) {
@@ -134,7 +134,7 @@ export default function UpdateOrderPage() {
     <div className="w-full flex justify-center bg-amber-100 text-stone-900/80 h-screen p-4 pb-40 md:pb-20">
       <div className="flex w-full h-full p-5 pt-12">
         <Sidebar />
-        <div className="flex flex-col w-full max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg overflow-y-scroll">
+        <div className="flex flex-col w-full max-w-2xl mx-auto bg-white p-6 overflow-y-auto pinkmodal">
           {orderData ? (
             <>
               <h2 className="text-2xl font-semibold mb-4">
@@ -145,15 +145,16 @@ export default function UpdateOrderPage() {
                 <div>
                   <label
                     htmlFor="package_description"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium"
                   >
                     Package Description
                   </label>
                   <textarea
                     id="package_description"
                     value={orderData.package_description}
-                    className="w-full p-2 mt-1 border rounded-md bg-gray-100 text-gray-600"
+                    className="w-full p-2 mt-1 border-2 border-stone-400 resize-none"
                     disabled
+                    
                   />
                 </div>
 
@@ -163,13 +164,13 @@ export default function UpdateOrderPage() {
                     htmlFor="payment_amount"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Payment Amount
+                    Payment Amount (THB)
                   </label>
                   <input
                     id="payment_amount"
                     type="number"
                     value={orderData.payment_amount}
-                    className="w-full p-2 mt-1 border rounded-md bg-gray-100 text-gray-600"
+                    className="w-full p-2 mt-1 border-2 border-stone-400 "
                     disabled
                   />
                 </div>
@@ -185,7 +186,7 @@ export default function UpdateOrderPage() {
                   <select
                     id="payment_type"
                     value={orderData.payment_type}
-                    className="w-full p-2 mt-1 border rounded-md bg-gray-100 text-gray-600"
+                    className="w-full p-2 mt-1 border-2 border-stone-400"
                     disabled
                   >
                     <option value="platform">Platform</option>
@@ -198,13 +199,13 @@ export default function UpdateOrderPage() {
                     htmlFor="package_weight"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Package Weight
+                    Package Weight (g)
                   </label>
                   <input
                     id="package_weight"
                     type="number"
                     value={orderData.package_weight}
-                    className="w-full p-2 mt-1 border rounded-md bg-gray-100 text-gray-600"
+                    className="w-full p-2 mt-1 border-2 border-stone-400 "
                     disabled
                   />
                 </div>
@@ -221,7 +222,7 @@ export default function UpdateOrderPage() {
                     id="depositor_id"
                     type="text"
                     value={depositorUsername ?? 'N/A'}
-                    className="w-full p-2 mt-1 border rounded-md bg-gray-100 text-gray-600"
+                    className="w-full p-2 mt-1 border-2 border-stone-400"
                     disabled
                   />
                 </div>
@@ -235,23 +236,23 @@ export default function UpdateOrderPage() {
                     >
                       Depositee
                     </label>
-                    <div className="flex items-center space-x-2 mt-1">
+                    <div className="flex items-center space-x-2 mt-1 flex-col sm:flex-row gap-4">
                       <input
                         id="depositee_id"
                         type="text"
                         value={depositeeUsername ?? 'N/A'}
-                        className="w-full p-2 border rounded-md bg-gray-100 text-gray-600"
+                        className="w-full p-2 border-2 border-stone-400 "
                         disabled
                       />
                       <button
-                        className="bg-blue-400 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200"
+                        className="amberbtn bg-white w-full sm:w-auto"
                         onClick={handleDepositeeClick}
                       >
                         Profile
                       </button>
                      {orderData.status && orderData.status === 'completed' && isReviewable() ? 
                       <button
-                        className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200"
+                        className="amberbtn bg-white w-full sm:w-auto"
                         onClick={handleReviewButton}
                       >
                         Review
@@ -273,8 +274,8 @@ export default function UpdateOrderPage() {
                   <input
                     id="status"
                     type="text"
-                    value={orderData.status}
-                    className="w-full p-2 mt-1 border rounded-md bg-gray-100 text-gray-600"
+                    value={capitalizeFirstLetter(orderData.status)}
+                    className="w-full p-2 mt-1 border-2 border-stone-400 "
                     disabled
                   />
                 </div>
@@ -282,7 +283,7 @@ export default function UpdateOrderPage() {
                 {orderData.status !== "completed" && isUpdateable() ? (
                   <button
                     onClick={handleSubmit}
-                    className="flex align-bottom bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200"
+                    className="pinkbtn"
                   >
                     {getUpdateButtonText(orderData)}
                   </button>

@@ -73,7 +73,7 @@ export default function CreateOrderForm(props: CreateOrderFormProps) {
           onChange={(e) => setPackageDescription(e.target.value)}
         />
 
-        <label className="mx-8">Package Weight (kg)</label>
+        <label className="mx-8">Package Weight (grams)</label>
         <input
           type="number"
           placeholder="Weight of the package"
