@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:18.20-buster-slim
 
 # Set the working directory in the container
 WORKDIR /app

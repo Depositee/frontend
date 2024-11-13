@@ -7,31 +7,49 @@ import logout from "@/api/auth/logout.api";
 import { GetUserData, UserData } from "@/interface/auth/user";
 import { connectWebSocket } from "@/websocket/connectWebSocket";
 import getUserData from "@/api/auth/getUserData.api";
+import getBalance from "@/api/payment/getBalance.api";
+import addBalance from "@/api/payment/addBalance.api";
 
 export default function Navbar() {
+  const { isLogin, setIsLogin, currentUser, setCurrentUser } =
+    useContext(AuthContext);
+  const [userName, setUserName] = useState<string>("");
+  const [balance, setBalance] = useState<number>(0);
 
-  const { isLogin , setIsLogin ,currentUser, setCurrentUser} = useContext(AuthContext);
-  const [userName , setUserName] = useState<string>('')
+  const handleLogout = async () => {
+    await logout();
+    setIsLogin(false);
+    setCurrentUser(null);
+    window.location.reload();
+  };
+  // fetch balance
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      if (isLogin && currentUser != null && currentUser.data.user) {
+        const userData: UserData = currentUser.data.user;
+        const balanceData = await getBalance(userData.id);
+        if (balanceData) {
+          setBalance(balanceData.data.balance);
+        }
+      }
+    }, 500);
 
-  const handleLogout = async() =>{
-    await logout()
-    setIsLogin(false)
-    setCurrentUser(null)
-    window.location.reload()
-  }
+    return () => clearTimeout(timer);
+  }, [currentUser, isLogin]);
 
   useEffect(() => {
-    const timer = setTimeout( async() => {
+    const timer = setTimeout(async () => {
       if (isLogin && currentUser != null && currentUser.data.user) {
         const userData: UserData = currentUser.data.user;
         connectWebSocket(userData);
-        const userProfile : GetUserData | undefined= await getUserData(userData.id)
-        if(userProfile){
-          setUserName(userProfile.data.username)
+        const userProfile: GetUserData | undefined = await getUserData(
+          userData.id
+        );
+        if (userProfile) {
+          setUserName(userProfile.data.username);
         }
-
       }
-    }, 500); 
+    }, 500);
 
     return () => clearTimeout(timer);
   }, [currentUser, isLogin]);
@@ -47,16 +65,21 @@ export default function Navbar() {
           <NavItem path="/register" title="Register" />
         </>
       )}
-      {
-        userName && userName !== '' ? 
-          <div className="relative justify-center align-center flex">
-            {userName}
-          </div> 
-        : null  
-      }
+      {userName && userName !== "" ? (
+        <div
+          className="relative justify-center align-center inline-flex"
+          onClick={() => {
+            addBalance(currentUser!.data.user.id, 100);
+            setBalance(balance + 100);
+          }}
+        >
+          <span className="select-none inline">{userName}</span> : {balance}{" "}
+          BATH
+        </div>
+      ) : null}
       <div className="relative h-full justify-center align-center flex">
         <Image src="/globe.svg" alt="logo" width={24} height={24} />
       </div>
     </div>
   );
-};
+}
